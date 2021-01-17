@@ -4,35 +4,38 @@
 {% block content %}
 <body>
 
-  <!-- Page Content -->
- <div class="row">
-   <div class="col-lg-12 text-center">
-       <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
-       <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
-   </div>
-     <div class="col-lg-12 mb-4">
-        <a href="{{ url_for('homepage', list_type="now_playing") }}" class="btn btn-outline-info">Now Playing</a>
-         <a href="{{ url_for('homepage', list_type="popular") }}" class="btn btn-outline-info">Popular</a>
-         <a href="{{ url_for('homepage', list_type="top_rated") }}" class="btn btn-outline-info">Top Rated</a>
-         <a href="{{ url_for('homepage', list_type="upcoming") }}" class="btn btn-outline-info">Upcoming</a>
+<!-- Page Content -->
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
+        <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
     </div>
-   {% for movie in movies %}
-   <div class="col-lg-3 col-md-6 mb-4">
-       <div class="card h-100">
-           <img class="card-img-top" src="http://placehold.it/300x500" alt="">
-           <div class="card-body">
-               <h4 class="card-title">{{ movie.title }}</h4>
-           </div>
-           <div class="figure">
-            <img src="{{ tmdb_image_url(movie.poster_path, "w185") }}"
-               alt="The movie poster">
-           </div>
-           <div class="card-footer text-center">
-               <a href="{{ url_for('movie_details', movie_id=movie.id) }}">Pokaż więcej</a>
-           </div>
-       </div>
-   </div>
-   {% endfor %}
+    <div class="col-lg-12 mb-4">
+        {% for movie_list_type in movies_list_types %}
+        <a href="{{ url_for('homepage', list_type=movie_list_type) }}"
+           class="{{ 'btn btn-info' if movie_list_type == current_list else 'btn btn-outline-info'}}">
+            {{ movie_list_type | capitalize }}
+        </a>
+        {% endfor %}
+    </div>
+
+    {% for movie in movies %}
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="http://placehold.it/300x500" alt="">
+            <div class="card-body">
+                <h4 class="card-title">{{ movie.title }}</h4>
+            </div>
+            <div class="figure">
+                <img src="{{ tmdb_image_url(movie.poster_path, 'w185') }}"
+                     alt="The movie poster">
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ url_for('movie_details', movie_id=movie.id) }}">Pokaż więcej</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
 </body>
