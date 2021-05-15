@@ -1,7 +1,7 @@
 import requests
+import os
 
-api_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjQ1ZTYyMmM3MTBlMmMzYTMwNDRhMzMwMzZiNmUwZSIsInN1YiI6IjVmZjFiYWJlZGYyOTQ1MDA0MDJiMmZkNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GsUOAsK4qm3vrIOtRRFoDITYlphgwZMf4k_06Kd_McY"
-
+API_TOKEN = os.environ.get("TMDB_API_TOKEN", "")
 
 def get_movies_list(list_type):
     endpoint = f"https://api.themoviedb.org/3/movie/{list_type}"
@@ -31,16 +31,16 @@ def get_single_movie_cast(movie_id):
     return response.json()["cast"]
 
 
+base_url = "https://image.tmdb.org/t/p/"
+
+
 def get_poster_url(poster_api_path, size="w185"):
-    base_url = "https://image.tmdb.org/t/p/"
     return f"{base_url}{size}/{poster_api_path}"
 
 
 def get_backdrop_url(backdrop_api_path, size="w780"):
-    base_url = "https://image.tmdb.org/t/p/"
     return f"{base_url}{size}/{backdrop_api_path}"
 
 
 def get_profile_url(profile_api_path, size="w185"):
-    base_url = "https://image.tmdb.org/t/p/"
     return f"{base_url}{size}/{profile_api_path}"
