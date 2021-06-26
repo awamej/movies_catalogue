@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
-import tmdb_client
-import random
+
+from . import tmdb_client
 
 app = Flask(__name__)
-
 
 movies_list_types = ["now_playing", "popular", "top_rated", "upcoming"]
 
@@ -27,26 +26,11 @@ def movie_details(movie_id):
 
 @app.context_processor
 def utility_processor():
-    def tmdb_image_url(path, size):
-        return tmdb_client.get_poster_url(path, size)
-
-    return {"tmdb_image_url": tmdb_image_url}
-
-
-@app.context_processor
-def utility_processor_1():
-    def tmdb_image_url(path, size):
-        return tmdb_client.get_backdrop_url(path, size)
-
-    return {"tmdb_image_url": tmdb_image_url}
-
-
-@app.context_processor
-def utility_processor_2():
-    def tmdb_image_url(path, size):
-        return tmdb_client.get_profile_url(path, size)
-
-    return {"tmdb_image_url": tmdb_image_url}
+    return {
+        "tmdb_image_url": tmdb_client.get_poster_url,
+        "tmdb_backdrop_url": tmdb_client.get_backdrop_url,
+        "tmdb_profile_url": tmdb_client.get_profile_url
+    }
 
 
 if __name__ == "__main__":
