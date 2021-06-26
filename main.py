@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from . import tmdb_client
+import tmdb_client
 
 app = Flask(__name__)
 

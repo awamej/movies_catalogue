@@ -2,7 +2,7 @@ import os
 
 import requests
 
-API_TOKEN = os.environ.get("TMDB_API_TOKEN", "")
+API_TOKEN = os.environ["TMDB_API_TOKEN"]
 
 
 def get_movies_list(list_type):
